@@ -1,0 +1,23 @@
+# Python virtual environment
+.venv/
+venv/
+# Environment variables
+.env
+*.env
+!*.env.example
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Model and data artifacts
+*.pkl
+*.h5
+*.pt
+*.pth
