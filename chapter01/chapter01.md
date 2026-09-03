@@ -324,6 +324,7 @@ notebooks/ch01_ai_data_analysis_intro.ipynb
 
 #### 실행한 코드
 
+배경 실행 + 불러오기
 ```python
 from pathlib import Path
 
@@ -339,22 +340,56 @@ customers = pd.read_csv(DATA_DIR / 'customers.csv')
 customers.head()
 
 ```
+실습 코드
+```python
+import pandas as pd
+
+c = pd.read_csv("../data/raw/customers.csv")
+o = pd.read_csv("../data/raw/orders.csv", parse_dates=["order_date"])
+i = pd.read_csv("../data/raw/order_items.csv").groupby("order_id", as_index=False)["quantity"].sum()
+
+result = (o[(o.order_status == "completed") & (o.order_date >= o.order_date.max() - pd.DateOffset(years=1))]
+          .merge(c, on="customer_id")
+          .merge(i, on="order_id")
+          .groupby("city")
+          .agg(completed_orders=("order_id", "nunique"), avg_quantity=("quantity", "mean"))
+          .sort_values("avg_quantity", ascending=False))
+
+print(result)
+```
 
 #### 실행 결과
 
 ```text
 data 파일 경로를 다르게 설치해 데이터 경로를 내 파일 구조에 맞게 수정하였다. (./data/raw -> ../data/raw)
 이후 에러 없이 코드가 정상적으로 실행되었으며, customers 데이터의 상위 5개 행이 표 형태로 출력되었다.
+
+실습 코드 실행 결과 다음과 같았다.
+completed_orders  avg_quantity
+city                                
+대구                  10      9.600000
+고양                  18      9.333333
+대전                  14      9.000000
+부산                  13      8.538462
+수원                  14      8.000000
+광주                  17      7.941176
+울산                  20      7.700000
+성남                  31      7.290323
+인천                  18      6.722222
+서울                  29      6.655172
 ```
 
 #### 결과 관찰
 
 pandas, numpy, matplotlib, seaborn, Path를 오류 없이 불러올 수 있었다. DATA_DIR = Path('../data/raw')를 통해 이후 분석에서 사용할 데이터 폴더의 경로를 지정하였다.
 pandas를 이용해 customers 표를 불러온 결과 5개 행의 customer 정보를 확인할 수 있었다. customer_id, name, gender, age, city, signup_date 컬럼을 확인할 수 있었다. 
+최근 1년 completed 주문 기준 지역별 주문당 평균 상품 수량을 비교한 결과 대구가 평균 9.6개로 가장 높았고 고양 9.33개로 나타났으며, 서울이 약 0.66개로 가장 낮았다.
 
 #### 나의 해석과 판단
 
 현재 notebook은 실제 데이터를 이용해 분석을 수행하는 단계가 아닌, 추후 분석을 위한 기본 환경을 세팅해둔 starter scaffold라고 생각하였다. 즉 분석할 때 사용할 라이브러리를 미리 불러와 두고, 데이터가 저장된 위치를 미리 알려주는 파일이라고 생각하였다. 지금 실습에서는 해당 코드가 정상적으로 작동하는지 확인하는 것이라고 생각했다.
+
+실습 코드 해석: 지역에 따라 한 번 주문 시 구매하는 평균 상품 수량에 차이가 있는 것으로 보였다. 대구, 고양 등이 주문 1건 당 구매 수량이 상대적으로 높았고, 서울과 인천이 비교적 낮게 나타났다. 다만 평균값만으로는 특정 지역의 고객이 대량 구매를 선호한다고 단정하기 어렵다. 특히 가장 높은 대구의 경우 주문 건수가 10개로 작기 때문에 일부 높은 값에 의한 혼동이 나타났을 가능성도 있다. 따라서 지역별 평균 상품 수량뿐만 아니라 주문 건수 + 상품 수량 분포 역시 같이 판단해야겠다는 필요성을 느꼈다.
 
 #### 한계와 추가 확인 사항
 
@@ -362,9 +397,13 @@ pandas를 이용해 customers 표를 불러온 결과 5개 행의 customer 정�
 챕터 2에서는  python과 git이 정상적으로 확인되는지 다시 점검하고, 어떤 환경에서 코드가 실행되고 있는지 정확하게 확인해야 한다고 생각했다. 그리고 현재는 add, commit, push 를 배운 대로 따라하고 있는데, 해당 명령어의 범위를 좀 더 정확히 파악해야 한다.
 챕터 3에서는 실제 csv 데이터를 본격적으로 확인해야 한다. 각 파일 행과 컬럼명을 확인하여 이번 실습에서 진행한 내용과 일치하는지 확인하고, 각 컬럼의 데이터 타입을 확인해 날짜 정보나 수량이 문자열로 저장되어 있지 않은지 확인해야 하고, 필요 시 변환해야 한다. 중복 데이터 정보 혹은 결측치, 이상값 역시 존재하는지 확인해야 한다. 
 
+실습 코드 해석: 이 결과를 통해 지역별로 한 번 주문 시 구매하는 상품 수량에 차이가 있는지 확인할 수 있으며, 주문 당 구매 수량이 높은 지역 패턴이 지속적으로 확인되면 대량 구매 할인 등 마케팅 전략을 검토할 때 자료로 사용할 수 있다. 다만 지역별 주문 건수가 다르기 때문에 평균값이 정확한 지표라고 보기 어렵다. 일부 주문 영향으로 평균값이 크게 달라질 수 있다. 또한 지역과 구매 수량 사이에 높은 상관관계가 있는지, 통계적으로 유의한 값인지 역시 검토가 필요하다.
+
 #### Evidence
 
 ![STEP 7 Notebook 실행 결과](images/step07_notebook_result.png)
+
+![STEP 7 Notebook 실행 결과2](images/step07_notebook_result_N.png)
 
 
 ---
