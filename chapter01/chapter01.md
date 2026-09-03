@@ -433,7 +433,7 @@ https://github.com/song-03/llm-data-analysis-study/blob/main/chapter01/chapter01
 
 ### 수행 상태
 
-- [ x  ] COMPLETE
+- [x] COMPLETE
 - [ ] PARTIAL
 
 ### 내가 가장 중요하게 내린 판단 1개
