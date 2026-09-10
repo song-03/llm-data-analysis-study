@@ -69,8 +69,8 @@ python 버전의 경우 3.12.9, git 버전의 경우 2.55.0.windows.5가 표시�
 ### 핵심 실행 결과
 
 ```text
-현재 프로젝트 경로: C:\dev\llm-data-analysis-study
-터미널 Python 실행 파일: C:\dev\llm-data-analysis-study\.venv\Scripts\python.exe
+현재 프로젝트 경로: C:\dev\llm-data-analysis-course
+터미널 Python 실행 파일: C:\dev\llm-data-analysis-course\.venv\Scripts\python.exe
 가상환경 활성화 여부: 활성화됨
 패키지 설치 결과: requirements.txt의 패키지가 .venv 환경에 설치되어 있으며, 재실행 시 Requirement already satisfied로 확인됨
 ```
@@ -81,10 +81,8 @@ python 버전의 경우 3.12.9, git 버전의 경우 2.55.0.windows.5가 표시�
 
 ### 결과 관찰
 
-터미널에서 sys. executable로 확인한 결과 python은 현재 C:\dev\llm-data-analysis-study\.venv\Scripts\python.exe 을 통해서 실행되고 있었다. 다시 말해서 현재 `python `은 `C:\dev\llm-data-analysis-study\.venv\Scripts\python.exe`를 가리키고 있었다. 또한 requirements.txt의 패키지를 실행하였고, 재설치하자 주요 패키지가 이미 설치되어 있음을 확인할 수 있었다. 현재 터미널에서 프로젝트 .venv 가상환경에 포함된 python과 패키지를 사용하고 있음을 확인할 수 있었다.
+터미널에서 sys. executable로 확인한 결과 python은 현재 C:\dev\llm-data-analysis-course\.venv\Scripts\python.exe 을 통해서 실행되고 있었다. 다시 말해서 현재 `python `은 `C:\dev\llm-data-analysis-course\.venv\Scripts\python.exe`를 가리키고 있었다. 또한 requirements.txt의 패키지를 실행하였고, 재설치하자 주요 패키지가 이미 설치되어 있음을 확인할 수 있었다. 현재 터미널에서 프로젝트 .venv 가상환경에 포함된 python과 패키지를 사용하고 있음을 확인할 수 있었다.
 
-
-(폴더의 경우 llm-data-analysis-course가 아닌 llm-data-analysis-study로 저장하였다. 실습 md 에는 course로 나와있으나 처음 주차 슬랙에 안내된 가이드에서는 study로 안내되어 이를 기준으로 진행하였다.)
 
 ### 나의 해석과 판단
 
@@ -105,9 +103,9 @@ python 버전의 경우 3.12.9, git 버전의 경우 2.55.0.windows.5가 표시�
 ### 확인 결과
 
 ```text
-VS Code Python 인터프리터: c:\dev\llm-data-analysis-study\.venv\Scripts\python.exe
-Notebook sys.executable: c:\dev\llm-data-analysis-study\.venv\Scripts\python.exe
-Notebook Path.cwd(): c:\dev\llm-data-analysis-study\notebooks
+VS Code Python 인터프리터:c:\dev\llm-data-analysis-course\.venv\Scripts\python.exe
+Notebook sys.executable: c:\dev\llm-data-analysis-course\.venv\Scripts\python.exe
+Notebook Path.cwd(): c:\dev\llm-data-analysis-course\notebooks
 ```
 
 
@@ -117,7 +115,7 @@ Notebook Path.cwd(): c:\dev\llm-data-analysis-study\notebooks
 
 ### 결과 관찰
 
-터미널에서 확인한 Python 실행 파일과 Notebook의 sys.executable 결과가 모두 C:\dev\llm-data-analysis-study\.venv\Scripts\python.exe로 같은 것으로 나타났다. 따라서 터미널과 Jupyter Notebook이 같은 프로젝트 .venv 가상환경을 사용하고 있음을 확인했다. 또한 Notebook의 현재 작업 폴더는 C:\dev\llm-data-analysis-study\notebooks 였다. 
+터미널에서 확인한 Python 실행 파일과 Notebook의 sys.executable 결과가 모두 C:\dev\llm-data-analysis-course\.venv\Scripts\python.exe로 같은 것으로 나타났다. 따라서 터미널과 Jupyter Notebook이 같은 프로젝트 .venv 가상환경을 사용하고 있음을 확인했다. 또한 Notebook의 현재 작업 폴더는 C:\dev\llm-data-analysis-course\notebooks 였다. 
 
 ### 나의 해석과 판단
 
@@ -152,7 +150,7 @@ customers.shape: (150, 6)
 
 ### 결과 관찰
 
-DATA_DIR 존재여부를 확인한 결과 True 로 나타났으며, customers.csv 파일 역시 정상적으로 불러올 수 있었다. 위치는 프로젝트 루트: c:\dev\llm-data-analysis-study, 데이터 폴더: c:\dev\llm-data-analysis-study\data\raw 였으며 데이터 폴더 존재 여부: True 였다. `customers.head()` 실행 결과 고객 데이터의 처음 5개 행이 표 형태로 출력되었고, 'customer_id', 'name', 'gender', 'age', 'city', 'signup_date' 등의 컬럼이 포함되어 있었다. 또한 `customer.shape`를 통해 확인한 결과 150행과 6열으로 이루어진 데이터임을 확인할 수 있었다.
+DATA_DIR 존재여부를 확인한 결과 True 로 나타났으며, customers.csv 파일 역시 정상적으로 불러올 수 있었다. 위치는 프로젝트 루트: c:\dev\llm-data-analysis-course, 데이터 폴더: c:\dev\llm-data-analysis-course\data\raw 였으며 데이터 폴더 존재 여부: True 였다. `customers.head()` 실행 결과 고객 데이터의 처음 5개 행이 표 형태로 출력되었고, 'customer_id', 'name', 'gender', 'age', 'city', 'signup_date' 등의 컬럼이 포함되어 있었다. 또한 `customer.shape`를 통해 확인한 결과 150행과 6열으로 이루어진 데이터임을 확인할 수 있었다.
 
 ### 나의 해석과 판단
 
